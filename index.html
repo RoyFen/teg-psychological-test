@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心理測驗 - TEG 模型</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 性別選擇頁面 -->
+        <div id="gender-screen" class="screen active">
+            <div class="gender-box">
+                <h1>心理測驗</h1>
+                <p class="subtitle">TEG 模型測驗</p>
+                <div class="user-info-section">
+                    <h2>請輸入您的資訊</h2>
+                    <div class="input-group">
+                        <label for="user-name">姓名：</label>
+                        <input type="text" id="user-name" class="text-input" placeholder="請輸入您的姓名" required>
+                    </div>
+                    <div class="gender-selection">
+                        <h3>性別：</h3>
+                        <p class="gender-note">※ 性別資訊用於計算百分位數</p>
+                        <div class="gender-buttons">
+                            <button id="male-btn" class="gender-btn">
+                                <span class="gender-icon">♂</span>
+                                <span class="gender-label">男生</span>
+                            </button>
+                            <button id="female-btn" class="gender-btn">
+                                <span class="gender-icon">♀</span>
+                                <span class="gender-label">女生</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 開始頁面 -->
+        <div id="start-screen" class="screen">
+            <div class="welcome-box">
+                <h1>心理測驗</h1>
+                <p class="subtitle">TEG 模型測驗</p>
+                <div class="user-greeting">
+                    <p>您好，<span id="greeting-name" class="highlight-name"></span></p>
+                </div>
+                <div class="instructions">
+                    <h2>測驗說明</h2>
+                    <p>本測驗共有 <strong>60 題</strong>，請依據您的第一印象作答。</p>
+                    <h3>作答方式：</h3>
+                    <ul>
+                        <li><span class="symbol circle">◯</span> 代表「是」</li>
+                        <li><span class="symbol triangle">▲</span> 代表「不一定」</li>
+                        <li><span class="symbol cross">✕</span> 代表「不是」</li>
+                    </ul>
+                    <p class="note">※ 每題可複選，點選「下一題」後將無法修改答案</p>
+                </div>
+                <button id="start-btn" class="btn btn-primary">開始測驗</button>
+            </div>
+        </div>
+
+        <!-- 測驗頁面 -->
+        <div id="test-screen" class="screen">
+            <div class="test-box">
+                <!-- 進度區 -->
+                <div class="progress-section">
+                    <div class="question-counter">
+                        <span id="current-question">1</span> / <span id="total-questions">60</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                </div>
+
+                <!-- 題目區 -->
+                <div class="question-section">
+                    <h2 class="question-number">題目 <span id="question-num">1</span></h2>
+                    <p id="question-text" class="question-text"></p>
+                </div>
+
+                <!-- 選項區 -->
+                <div class="options-section">
+                    <button class="option-btn" data-value="circle">
+                        <span class="symbol">◯</span>
+                        <span class="label">是</span>
+                    </button>
+                    <button class="option-btn" data-value="triangle">
+                        <span class="symbol">▲</span>
+                        <span class="label">不一定</span>
+                    </button>
+                    <button class="option-btn" data-value="cross">
+                        <span class="symbol">✕</span>
+                        <span class="label">不是</span>
+                    </button>
+                </div>
+
+                <!-- 導航區 -->
+                <div class="navigation-section">
+                    <button id="next-btn" class="btn btn-primary" disabled>下一題</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 結果頁面 -->
+        <div id="result-screen" class="screen">
+            <div class="result-box">
+                <h1>測驗完成！</h1>
+                <div class="result-content">
+                    <p class="completion-message">您已完成所有 60 題測驗</p>
+                    
+                    <!-- TEG 人格分析圖表 -->
+                    <div class="chart-container">
+                        <h2 class="chart-title">TEG 人格分析圖</h2>
+                        <canvas id="teg-chart"></canvas>
+                    </div>
+                    
+                    <div id="result-details" class="result-details"></div>
+                </div>
+                <div class="result-actions">
+                    <button id="full-analysis-btn" class="btn btn-primary btn-large">📊 完整TEG模型分析</button>
+                    <button id="restart-btn" class="btn btn-secondary">重新測驗</button>
+                    <button id="view-answers-btn" class="btn btn-primary">查看答案</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 答案檢視頁面 -->
+        <div id="answers-screen" class="screen">
+            <div class="answers-box">
+                <h1>您的答案</h1>
+                <div id="answers-list" class="answers-list"></div>
+                <div class="answers-actions">
+                    <button id="back-to-result-btn" class="btn btn-secondary">返回結果</button>
+                    <button id="restart-from-answers-btn" class="btn btn-primary">重新測驗</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 版權聲明 -->
+    <footer class="copyright-footer">
+        <p>版權為天禄出版社所有</p>
+    </footer>
+
+    <script src="js/percentile.js"></script>
+    <script src="js/questions.js"></script>
+    <script src="js/scoring.js"></script>
+    <script src="js/personality-type.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
