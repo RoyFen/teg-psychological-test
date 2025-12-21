@@ -253,6 +253,20 @@ const TEGScoring = {
                     title: {
                         display: false
                     },
+                    datalabels: {
+                        display: true,
+                        align: 'top',
+                        anchor: 'end',
+                        offset: 4,
+                        color: '#333',
+                        font: {
+                            size: 11,
+                            weight: 'bold'
+                        },
+                        formatter: function(value, context) {
+                            return value.toFixed(2) + '%';
+                        }
+                    },
                     legend: {
                         display: true,
                         position: 'top',
