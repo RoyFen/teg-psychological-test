@@ -379,10 +379,10 @@ const PsychologicalTest = {
         }
         .chart-container {
             position: relative;
-            height: 400px;
+            height: 600px;
             margin: 40px 0;
             background: #FFF8DE;
-            padding: 20px;
+            padding: 30px;
             border-radius: 15px;
         }
         .type-section {
@@ -570,12 +570,12 @@ const PsychologicalTest = {
                     data: rawScores,
                     borderColor: '#8CA9FF',
                     backgroundColor: 'rgba(140, 169, 255, 0.2)',
-                    borderWidth: 3,
-                    pointRadius: 6,
+                    borderWidth: 4,
+                    pointRadius: 8,
                     pointBackgroundColor: '#8CA9FF',
                     pointBorderColor: '#fff',
-                    pointBorderWidth: 2,
-                    pointHoverRadius: 8,
+                    pointBorderWidth: 3,
+                    pointHoverRadius: 10,
                     tension: 0.3,
                     fill: true
                 }]
@@ -590,27 +590,31 @@ const PsychologicalTest = {
                         title: {
                             display: true,
                             text: '原始分數',
-                            font: { size: 14, weight: 'bold' }
+                            font: { size: 16, weight: 'bold' }
                         },
                         grid: { color: 'rgba(0, 0, 0, 0.1)' },
                         ticks: {
-                            stepSize: 5
+                            stepSize: 5,
+                            font: { size: 14 }
                         }
                     },
                     x: {
                         title: {
                             display: true,
                             text: 'TEG 人格面向',
-                            font: { size: 14, weight: 'bold' }
+                            font: { size: 16, weight: 'bold' }
                         },
-                        grid: { display: false }
+                        grid: { display: false },
+                        ticks: {
+                            font: { size: 14 }
+                        }
                     }
                 },
                 plugins: {
                     legend: {
                         display: true,
                         position: 'top',
-                        labels: { font: { size: 14 } }
+                        labels: { font: { size: 16 } }
                     },
                     tooltip: {
                         callbacks: {
