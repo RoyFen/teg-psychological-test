@@ -383,10 +383,10 @@ const PsychologicalTest = {
         }
         .chart-container {
             position: relative;
-            height: 1200px !important;
-            margin: 40px 0;
-            background: #FFF8DE;
-            padding: 30px;
+            height: 600px !important;
+            margin: 30px 0;
+            background: white;
+            padding: 20px;
             border-radius: 15px;
         }
         .type-section {
@@ -516,7 +516,7 @@ const PsychologicalTest = {
         </div>
         
         <h2 style="text-align: center; color: #667eea; margin: 30px 0 20px 0;">📊 TEG 人格分析圖</h2>
-        <div class="chart-container" style="height: 1200px !important;">
+        <div class="chart-container">
             <canvas id="teg-chart"></canvas>
         </div>
         
