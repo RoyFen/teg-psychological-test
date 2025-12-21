@@ -326,6 +326,10 @@ const PsychologicalTest = {
         const personalityType = PersonalityType.determineType(scores.percentiles);
         const genderText = scores.gender === 'male' ? '男生' : '女生';
         
+        // 提取百分位數和原始分數
+        const percentileScores = Object.keys(scores.percentiles).map(k => scores.percentiles[k].percentile);
+        const rawScores = Object.keys(scores.percentiles).map(k => scores.percentiles[k].raw);
+        
         return `
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -559,8 +563,8 @@ const PsychologicalTest = {
     <script>
         // 繪製 TEG 圖表
         const ctx = document.getElementById('teg-chart').getContext('2d');
-        const percentileScores = ${JSON.stringify(Object.keys(scores.percentiles).map(k => scores.percentiles[k].percentile))};
-        const rawScores = ${JSON.stringify(Object.keys(scores.percentiles).map(k => scores.percentiles[k].raw))};
+        const percentileScores = [${percentileScores.join(', ')}];
+        const rawScores = [${rawScores.join(', ')}];
         
         new Chart(ctx, {
             type: 'line',
