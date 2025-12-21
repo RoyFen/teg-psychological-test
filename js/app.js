@@ -559,7 +559,8 @@ const PsychologicalTest = {
     <script>
         // 繪製 TEG 圖表
         const ctx = document.getElementById('teg-chart').getContext('2d');
-        const rawScores = ${JSON.stringify(Object.keys(scores.percentiles).map(k => scores.percentiles[k].rawScore))};
+        const percentileScores = ${JSON.stringify(Object.keys(scores.percentiles).map(k => scores.percentiles[k].percentile))};
+        const rawScores = ${JSON.stringify(Object.keys(scores.percentiles).map(k => scores.percentiles[k].raw))};
         
         new Chart(ctx, {
             type: 'line',
@@ -567,7 +568,7 @@ const PsychologicalTest = {
                 labels: ['CP', 'NP', 'A', 'FC', 'AC', 'D', 'Q'],
                 datasets: [{
                     label: 'TEG 人格分析 (${genderText})',
-                    data: rawScores,
+                    data: percentileScores,
                     borderColor: '#8CA9FF',
                     backgroundColor: 'rgba(140, 169, 255, 0.2)',
                     borderWidth: 4,
@@ -586,15 +587,15 @@ const PsychologicalTest = {
                 scales: {
                     y: {
                         beginAtZero: true,
-                        max: 60,
+                        max: 100,
                         title: {
                             display: true,
-                            text: '原始分數',
+                            text: '百分位數',
                             font: { size: 16, weight: 'bold' }
                         },
                         grid: { color: 'rgba(0, 0, 0, 0.1)' },
                         ticks: {
-                            stepSize: 5,
+                            stepSize: 10,
                             font: { size: 14 }
                         }
                     },
@@ -620,9 +621,13 @@ const PsychologicalTest = {
                         callbacks: {
                             label: function(context) {
                                 const labels = ['CP', 'NP', 'A', 'FC', 'AC', 'D', 'Q'];
-                                const maxScores = [18, 20, 20, 20, 20, 20, 60];
                                 const index = context.dataIndex;
-                                return labels[index] + ' 原始分數: ' + context.parsed.y + ' / ' + maxScores[index];
+                                const percentile = percentileScores[index];
+                                const raw = rawScores[index];
+                                return [
+                                    labels[index] + ' 百分位數: ' + percentile + '%',
+                                    '原始分數: ' + raw
+                                ];
                             }
                         }
                     }
