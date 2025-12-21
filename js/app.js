@@ -512,7 +512,7 @@ const PsychologicalTest = {
         </div>
         
         <h2 style="text-align: center; color: #667eea; margin: 30px 0 20px 0;">📊 TEG 人格分析圖</h2>
-        <div class="chart-container">
+        <div class="chart-container" style="height: 1200px !important;">
             <canvas id="teg-chart"></canvas>
         </div>
         
