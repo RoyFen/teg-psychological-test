@@ -379,7 +379,7 @@ const PsychologicalTest = {
         }
         .chart-container {
             position: relative;
-            height: 1200px;
+            height: 1200px !important;
             margin: 40px 0;
             background: #FFF8DE;
             padding: 30px;
