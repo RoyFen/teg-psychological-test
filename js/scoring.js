@@ -248,7 +248,7 @@ const TEGScoring = {
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: true,
+                maintainAspectRatio: false,
                 plugins: {
                     title: {
                         display: false
