@@ -559,7 +559,7 @@ const PsychologicalTest = {
     <script>
         // 繪製 TEG 圖表
         const ctx = document.getElementById('teg-chart').getContext('2d');
-        const percentiles = ${JSON.stringify(Object.keys(scores.percentiles).map(k => scores.percentiles[k].percentile))};
+        const rawScores = ${JSON.stringify(Object.keys(scores.percentiles).map(k => scores.percentiles[k].rawScore))};
         
         new Chart(ctx, {
             type: 'line',
@@ -567,7 +567,7 @@ const PsychologicalTest = {
                 labels: ['CP', 'NP', 'A', 'FC', 'AC', 'D', 'Q'],
                 datasets: [{
                     label: 'TEG 人格分析 (${genderText})',
-                    data: percentiles,
+                    data: rawScores,
                     borderColor: '#8CA9FF',
                     backgroundColor: 'rgba(140, 169, 255, 0.2)',
                     borderWidth: 3,
@@ -586,13 +586,16 @@ const PsychologicalTest = {
                 scales: {
                     y: {
                         beginAtZero: true,
-                        max: 100,
+                        max: 60,
                         title: {
                             display: true,
-                            text: '百分位數',
+                            text: '原始分數',
                             font: { size: 14, weight: 'bold' }
                         },
-                        grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                        ticks: {
+                            stepSize: 5
+                        }
                     },
                     x: {
                         title: {
@@ -612,7 +615,10 @@ const PsychologicalTest = {
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                return '百分位數: ' + context.parsed.y;
+                                const labels = ['CP', 'NP', 'A', 'FC', 'AC', 'D', 'Q'];
+                                const maxScores = [18, 20, 20, 20, 20, 20, 60];
+                                const index = context.dataIndex;
+                                return labels[index] + ' 原始分數: ' + context.parsed.y + ' / ' + maxScores[index];
                             }
                         }
                     }
