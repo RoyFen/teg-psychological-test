@@ -583,7 +583,6 @@ const PsychologicalTest = {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                aspectRatio: 1,
                 scales: {
                     y: {
                         beginAtZero: true,
