@@ -52,6 +52,10 @@ const TEG_NORMS = {
  * @returns {number} 百分位數 (0-100)
  */
 function getPercentile(scale, rawScore, gender = 'M') {
+    // 轉換 gender 格式: 'male'/'female' → 'M'/'F'
+    if (gender === 'male') gender = 'M';
+    if (gender === 'female') gender = 'F';
+    
     // Egogram 尺度
     if (['CP', 'NP', 'A', 'FC', 'AC'].includes(scale)) {
         const scaleData = TEG_NORMS.egogram.rawToPercentile[scale];
@@ -97,7 +101,34 @@ function calculateAllPercentiles(scores, gender = 'M') {
     return percentiles;
 }
 
+/**
+ * 取得百分位數等級描述
+ * @param {number} percentile - 百分位數
+ * @returns {string} 等級描述
+ */
+function getPercentileDescription(percentile) {
+    if (percentile >= 90) return '非常高';
+    if (percentile >= 75) return '高';
+    if (percentile >= 60) return '中上';
+    if (percentile >= 40) return '中等';
+    if (percentile >= 25) return '中下';
+    if (percentile >= 10) return '低';
+    return '非常低';
+}
+
+/**
+ * 取得百分位數等級顏色
+ * @param {number} percentile - 百分位數
+ * @returns {string} CSS 顏色類別
+ */
+function getPercentileColor(percentile) {
+    if (percentile >= 75) return 'high';
+    if (percentile >= 50) return 'medium-high';
+    if (percentile >= 25) return 'medium-low';
+    return 'low';
+}
+
 // 匯出函數
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { getPercentile, calculateAllPercentiles, TEG_NORMS };
+    module.exports = { getPercentile, calculateAllPercentiles, getPercentileDescription, getPercentileColor, TEG_NORMS };
 }
